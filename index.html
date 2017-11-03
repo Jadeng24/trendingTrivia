@@ -13,7 +13,7 @@
   <header>
     <div></div>
     <h1>Trivia {{test}} Trends</h1>
-    <button>
+    <button ng-click="toggleModal({})" >
       <span>+</span> Add Question</button>
   </header>
   <article>
@@ -24,7 +24,7 @@
       <a ng-click="setFilter(3)" >Hard</a>
       <a ng-click="toggleSearch()" >Search by Animal</a>
     </nav>
-    <div class="search" ng-hide="{{search}}" >
+    <div class="{{search ? 'search' : 'search hide'}}" >
       <input ng-model="animal" type="text" placeholder="Animal to search by">
     </div>
 
@@ -33,7 +33,7 @@
     <!-- Questions go here -->
     <div class="question-box">
       <div class="question-wrapper {{question.class}}" ng-repeat="question in questions | filter: animal" ng-model="question">
-        <h3>{{question.question}}</h3><div class="{{question.difficulty}}">{{question.difficulty}} </div><div class="gear"><img src="/styles/assets/gear.svg"/></div>
+        <h3>{{question.question}}</h3><div class="{{question.difficulty}}">{{question.difficulty}} </div><div class="gear" ng-click="toggleModal(question)" ><img src="/styles/assets/gear.svg"/></div>
         <ul>
           <li class="{{question.chosen == option ? 'chosen' : ''}}" ng-repeat="option in question.options" ng-click="selectOption(question, option)">{{option}}</li>
         </ul>
@@ -44,35 +44,35 @@
     {{test}}
 
   </article>
-  <!-- 
-  <div class="modal">
+  
+  <div class="{{modal ? 'modal' : 'hide'}}">
     <form>
-      <h4 class="close">X</h4>
-      <span>Question</span><input type="text" ng-model="">
-      <span>Animal it's about</span><input type="text" ng-model="">
+      <h4 ng-click="toggleModal({})" class="close">X</h4>
+      <span>Question</span><input type="text" ng-model="selectedQuestion.question">
+      <span>Animal it's about</span><input type="text" ng-model="selectedQuestion.animal">
       <span>Difficulty</span>
       <div class="range">
-        <input type="range" min="1" max="3" ng-model="">
+        <input type="range" min="1" max="3" ng-model="selectedQuestion.dif">
 
-        <h5>{{newQuestion.difficulty}}</h5>
+        <h5>{{selectedQuestion.difficulty}}</h5>
       </div>
       <h4>Options</h4>
       <div>
-        <input type="radio" ng-model="" value="1">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="selectedQuestion.options[0]" value="1">
+        <input type="text" ng-model="selectedQuestion.options[0]">
       </div>
       <div>
-        <input type="radio" ng-model="" value="2">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="selectedQuestion.options[1]" value="2">
+        <input type="text" ng-model="selectedQuestion.options[2]">
       </div>
       <div>
-        <input type="radio" ng-model="" value="3">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="selectedQuestion.options[3]" value="3">
+        <input type="text" ng-model="selectedQuestion.options[3]">
       </div>
       <div>
         <input type="radio" ng-model="" value="4">
-        <input type="text" ng-model="">
-      </div> -->
+        <input type="text" ng-model="selectedQuestion.options[4]">
+      </div>
 
   <!--Add question buttons-->
   <div class="buttons">

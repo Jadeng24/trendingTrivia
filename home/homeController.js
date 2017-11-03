@@ -1,7 +1,11 @@
 angular.module('trivia').controller('homeController', function ($scope, homeService) {
     $scope.test = 'test scope'
     $scope.myfilter = ''
-    $scope.search = true;
+    $scope.search = false;
+    $scope.modal = false;
+    $scope.selectedQuestion = {}
+
+
     console.log('controller')
     homeService.getQuestions().then(function (questions) {
         console.log(questions.data)
@@ -9,18 +13,23 @@ angular.module('trivia').controller('homeController', function ($scope, homeServ
             switch (q.difficulty) {
                 case 1:
                     q.difficulty = 'Easy'
+                    q.dif = 1
                     break;
                 case 2:
                     q.difficulty = 'Medium'
+                    q.dif = 2
                     break;
                 case 3:
                     q.difficulty = 'Hard'
+                    q.dif = 3
                 default:
                     break;
             }
             return q
         })
     })
+
+
     $scope.selectOption = function (question, option) {
         console.log(option)
         console.log(question)
@@ -36,10 +45,21 @@ angular.module('trivia').controller('homeController', function ($scope, homeServ
             question.class = "Hard"
         }
     }
+    
+    
     $scope.toggleSearch = function () {
         console.log($scope.search)
         $scope.search = !$scope.search
     }
+
+
+    $scope.toggleModal = function (question) {
+        console.log(question)
+        $scope.modal = !$scope.modal
+        $scope.selectedQuestion = Object.assign({}, question)
+    }
+    
+    
     $scope.setFilter = function (n) {
         console.log(n)
         $scope.myfilter = n
