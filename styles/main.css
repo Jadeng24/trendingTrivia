@@ -137,6 +137,9 @@ label {
 li input {
   float: left;
 }
+ul li:hover {
+  cursor: pointer;  
+}
 ul li label:hover, input:hover + label {
   opacity: .65;
 }
@@ -219,12 +222,19 @@ input[type="range"] {
 .right {
   float: right;
 }
-.green {
+.Easy {
   background: rgb(89, 189, 117);
 }
-.yellow {
+.Medium {
   background: rgb(213, 211, 70);
 }
-.red {
+.Hard {
   background: rgb(218, 45, 123);
+}
+.chosen {
+  background: rgba(121, 121, 121, 0.43);
+}
+
+.hide {
+  display: none;
 }

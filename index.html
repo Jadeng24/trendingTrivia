@@ -9,7 +9,7 @@
   <link rel="shortcut icon" href="/styles/assets/crownFavicon.png">
 </head>
 
-<body>
+<body ng-controller="homeController" >
   <header>
     <div></div>
     <h1>Trivia {{test}} Trends</h1>
@@ -17,23 +17,25 @@
       <span>+</span> Add Question</button>
   </header>
   <article>
-    <nav ng-controller="homeController" >
+    <nav >
       <a ng-click="setFilter('')" >All Questions</a>
       <a ng-click="setFilter(1)" >Easy</a>
       <a ng-click="setFilter(2)" >Medium</a>
       <a ng-click="setFilter(3)" >Hard</a>
-      <a>Search by Animal</a>
+      <a ng-click="toggleSearch()" >Search by Animal</a>
     </nav>
-    <div class="search">
+    <div class="search" ng-hide="{{search}}" >
       <input ng-model="animal" type="text" placeholder="Animal to search by">
     </div>
 
+    <ui-view></ui-view>
+
     <!-- Questions go here -->
-    <div class="question-box" ng-controller="homeController" >
-      <div class="question-wrapper" ng-repeat="question in questions | filter: animal" ng-model="question">
-        <h3>{{question.question}}</h3><div>{{question.difficulty}} </div><div class="gear"><img src="/styles/assets/gear.svg"/></div>
+    <div class="question-box">
+      <div class="question-wrapper {{question.class}}" ng-repeat="question in questions | filter: animal" ng-model="question">
+        <h3>{{question.question}}</h3><div class="{{question.difficulty}}">{{question.difficulty}} </div><div class="gear"><img src="/styles/assets/gear.svg"/></div>
         <ul>
-          <li ng-repeat="option in question.options">{{option}}</li>
+          <li class="{{question.chosen == option ? 'chosen' : ''}}" ng-repeat="option in question.options" ng-click="selectOption(question, option)">{{option}}</li>
         </ul>
       </div>
     </div>
@@ -96,6 +98,8 @@
   <script src="app.js" charset="utf-8"></script>
   <script src="home/homeController.js" charset="utf-8"></script>
   <script src="home/homeService.js" charset="utf-8"></script>
+
+  <script src="optionController.js" charset="utf-8"></script>
 
 </body>
 
