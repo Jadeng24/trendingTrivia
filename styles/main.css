@@ -222,13 +222,13 @@ input[type="range"] {
 .right {
   float: right;
 }
-.Easy {
+.Easy, d1 {
   background: rgb(89, 189, 117);
 }
-.Medium {
+.Medium, d2 {
   background: rgb(213, 211, 70);
 }
-.Hard {
+.Hard, d3 {
   background: rgb(218, 45, 123);
 }
 .chosen {
